@@ -32,9 +32,12 @@ $(function() {
     $('#form_reg').on('submit', function(e) {
             e.preventDefault();
             // $('#form_reg [name = username]') 注意空格
-            var data = { username: $('#form_reg [name = username]').val(), password: $('#form_reg [name=password]').val() }
+            var data = {
+                username: $('#form_reg [name=username]').val(),
+                password: $('#form_reg [name=password]').val()
+            }
 
-            $.post('http://ajax.frontend.itheima.net/api/reguser', data, function(res) {
+            $.post('/api/reguser', data, function(res) {
                 if (res.status !== 0) {
                     return layer.msg(res.message)
                 }
@@ -43,26 +46,24 @@ $(function() {
                 $('#link_login').click()
             })
         })
-        //监听登录表单的提交事件
+        // 监听登录表单的提交事件
     $('#form_login').submit(function(e) {
-        e.preventDefault()
+        // 阻止默认提交行为
+        e.preventDefault();
         $.ajax({
-
-            url: 'http://ajax.frontend.itheima.net/api/login',
-            method: 'post',
-            // 快速获取表单的数据,类似上边的拼接的data
+            url: '/api/login',
+            method: 'POST',
+            // 快速获取表单中的数据
             data: $(this).serialize(),
             success: function(res) {
                 if (res.status !== 0) {
                     return layer.msg('登录失败！')
                 }
-                layer.msg('登录成功')
-                    // console.log(res.token)
-                    // 将登录成功的token字符串保存到localstorage
+                layer.msg('登录成功！')
+                    // 将登录成功得到的 token 字符串，保存到 localStorage 中
                 localStorage.setItem('token', res.token)
-                    //跳转到后台
-                location.href = '/home/index.html'
-                    // Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4OTAsInVzZXJuYW1lIjoi5a2Z5oKf56m6IiwicGFzc3dvcmQiOiIiLCJuaWNrbmFtZSI6IiIsImVtYWlsIjoiIiwidXNlcl9waWMiOiIiLCJpYXQiOjE2MDI1MTM2OTgsImV4cCI6MTYwMjU0OTY5OH0.wVUkCCiMi_nf6S2PmlguShZuPYShoPfYWOQTOD6kpp0
+                    // 跳转到后台主页
+                location.href = "/home/index.html"
             }
         })
 
