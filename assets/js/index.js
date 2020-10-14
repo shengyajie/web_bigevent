@@ -58,12 +58,12 @@ function readerAvatar(user) {
 
     if (user.user_pic !== null) {
         // 渲染图片头像
-        $('layui-nav-img').attr('src', user.user_pic).show()
-        $('text-avatar').hide()
+        $('.layui-nav-img').attr('src', user.user_pic).show()
+        $('.text-avatar').hide()
     } else {
         // 渲染文本头像
-        $('layui-nav-img').hide()
+        $('#layui-nav-img').hide()
         var first = name[0].toUpperCase()
-        $('text-avatar').html(first).show()
+        $('.text-avatar').html(first).show()
     }
 }
